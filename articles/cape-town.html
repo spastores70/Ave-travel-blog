@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cape Town's Coastal Sunrise Loop — Wander With Ave</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream:#FFF8F0;--coral:#FF6B6B;--coral-dark:#e85555;--green:#2D6A4F;--dark:#1C1C1E;--gray:#6B7280;--warm-gray:#F3EDE5; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--dark); line-height:1.6; }
+    .nav { position:fixed; inset-block-start:0; inset-inline:0; z-index:1000; display:flex; align-items:center; justify-content:space-between; padding:0.9rem 2.5rem; background:rgba(255,248,240,0.96); backdrop-filter:blur(12px); box-shadow:0 2px 24px rgba(0,0,0,0.08); }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--green); text-decoration:none; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { color:var(--dark); text-decoration:none; font-size:0.82rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; transition:color 0.25s; position:relative; }
+    .nav-links a:hover { color:var(--coral); }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:2px; background:var(--coral); transition:width 0.3s; }
+    .nav-links a:hover::after { width:100%; }
+    .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--dark); border-radius:2px; }
+    .article-hero { position:relative; height:72vh; min-height:500px; display:flex; align-items:flex-end; overflow:hidden; }
+    .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .hero-overlay { position:relative; z-index:1; width:100%; padding:4rem 2.5rem 3rem; background:linear-gradient(to top,rgba(0,0,0,0.78) 0%,rgba(0,0,0,0.25) 55%,transparent 100%); }
+    .hero-inner { max-width:820px; margin:0 auto; }
+    .category-tag { display:inline-block; padding:0.28rem 0.9rem; border-radius:50px; background:var(--coral); color:white; font-size:0.72rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:1rem; }
+    .article-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,5vw,3.8rem); color:white; line-height:1.1; margin-bottom:1rem; text-shadow:0 2px 24px rgba(0,0,0,0.35); }
+    .article-meta { display:flex; align-items:center; gap:1.25rem; color:rgba(255,255,255,0.72); font-size:0.84rem; }
+    .meta-sep { opacity:0.35; }
+    .article-body { padding:4.5rem 2rem 5.5rem; }
+    .article-container { max-width:720px; margin:0 auto; }
+    .article-container p { font-size:1rem; line-height:1.9; color:#374151; margin-bottom:1.5rem; }
+    .article-container p.lead { font-size:1.15rem; line-height:1.85; color:var(--dark); }
+    .article-container h2 { font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--green); line-height:1.2; margin:3rem 0 1.1rem; }
+    .pull-quote { border-left:4px solid var(--coral); margin:2.75rem 0; padding:1.1rem 1.75rem; background:rgba(255,107,107,0.05); border-radius:0 8px 8px 0; }
+    .pull-quote p { font-family:'Playfair Display',serif !important; font-style:italic; font-size:1.2rem !important; line-height:1.65 !important; color:var(--dark) !important; margin:0 !important; }
+    .article-img-wrap { margin:2.75rem 0; }
+    .article-img { width:100%; border-radius:12px; display:block; }
+    .article-img-caption { font-size:0.8rem; color:var(--gray); text-align:center; margin-top:0.65rem; font-style:italic; }
+    .article-container ul { padding-left:1.6rem; margin-bottom:1.5rem; }
+    .article-container li { font-size:1rem; line-height:1.8; color:#374151; margin-bottom:0.35rem; }
+    .tip-box { background:var(--warm-gray); border-radius:12px; padding:1.3rem 1.6rem; margin:2.25rem 0; }
+    .tip-box strong { display:block; color:var(--green); margin-bottom:0.45rem; font-size:0.82rem; letter-spacing:0.7px; text-transform:uppercase; }
+    .tip-box p { margin:0 !important; font-size:0.92rem !important; color:var(--gray) !important; }
+    .more-stories { background:var(--warm-gray); padding:4.5rem 2rem; }
+    .more-inner { max-width:1120px; margin:0 auto; }
+    .more-stories h2 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--green); }
+    .more-divider { width:48px; height:3px; background:var(--coral); border-radius:2px; margin:0.75rem 0 2rem; }
+    .story-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+    .story-card { background:white; border-radius:14px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.06); transition:transform 0.3s,box-shadow 0.3s; }
+    .story-card:hover { transform:translateY(-5px); box-shadow:0 12px 36px rgba(0,0,0,0.12); }
+    .story-card img { width:100%; height:170px; object-fit:cover; display:block; }
+    .story-card-body { padding:1.1rem 1.25rem 1.3rem; }
+    .story-card-cat { font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--coral); margin-bottom:0.4rem; }
+    .story-card-title { font-family:'Playfair Display',serif; font-size:1rem; color:var(--dark); line-height:1.35; margin-bottom:0.75rem; }
+    .story-card-link { color:var(--coral); text-decoration:none; font-size:0.82rem; font-weight:600; display:inline-flex; align-items:center; gap:0.3rem; transition:gap 0.2s; }
+    .story-card-link:hover { gap:0.5rem; }
+    .footer { background:var(--green); color:rgba(255,255,255,0.75); text-align:center; padding:2.75rem 2rem; }
+    .footer-logo { font-family:'Playfair Display',serif; font-size:1.4rem; color:white; margin-bottom:0.35rem; }
+    .footer-tagline { font-family:'Playfair Display',serif; font-style:italic; font-size:0.88rem; margin-bottom:1.5rem; }
+    .footer-links { display:flex; justify-content:center; gap:2rem; list-style:none; margin-bottom:1.5rem; }
+    .footer-links a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.8rem; font-weight:500; letter-spacing:0.5px; text-transform:uppercase; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--coral); }
+    .footer-copy { font-size:0.78rem; color:rgba(255,255,255,0.32); }
+    @media(max-width:768px){
+      .nav{padding:0.75rem 1.25rem;} .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(255,248,240,0.98);flex-direction:column;gap:0;box-shadow:0 6px 24px rgba(0,0,0,0.1);}
+      .nav-links.open{display:flex;} .nav-links li{border-bottom:1px solid rgba(0,0,0,0.05);} .nav-links a{display:block;padding:0.95rem 1.75rem;}
+      .hamburger{display:flex;} .article-hero{height:55vh;min-height:380px;} .hero-overlay{padding:2.5rem 1.25rem 2rem;}
+      .article-body{padding:2.5rem 1.25rem 3.5rem;} .story-grid{grid-template-columns:1fr;} .more-stories{padding:3rem 1.25rem;}
+    }
+  </style>
+  <link rel="stylesheet" href="../animations.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="../index.html" class="nav-logo">Wander With Ave</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../blog.html">Blog</a></li>
+    <li><a href="../index.html#about">About</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<article>
+  <header class="article-hero">
+    <img src="https://picsum.photos/seed/capetownhero/1400/900" alt="Cape Town coastline" class="hero-img">
+    <div class="hero-overlay">
+      <div class="hero-inner">
+        <span class="category-tag">Adventure &middot; South Africa</span>
+        <h1>Cape Town's Coastal Sunrise Loop</h1>
+        <div class="article-meta">
+          <span>February 20, 2026</span>
+          <span class="meta-sep">|</span>
+          <span>6 min read</span>
+          <span class="meta-sep">|</span>
+          <span>Cape Town, South Africa</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="article-body">
+    <div class="article-container">
+
+      <p class="lead">Cape Town is the most dramatically situated city I have visited anywhere in the world. Table Mountain rises straight from the city centre. The Atlantic and Indian Oceans meet at Cape Point. The drive down the peninsula passes cliffs, penguins, whale grounds, and fishing villages within forty kilometres. I did it all in a single long day that began before sunrise and ended long after dark, and it was one of the best days I have ever had.</p>
+
+      <p>The key is going early. The light on the Atlantic coast in the first two hours after sunrise is extraordinary, the roads are empty, and the wildlife is most active. Pack a bag the night before, set your alarm for 5am, and accept that you will be tired and completely satisfied by the end of it.</p>
+
+      <h2>The Route</h2>
+
+      <p>The loop runs from Cape Town city centre down the Atlantic seaboard (the western coast), around Cape Point, up the False Bay coast (the eastern side), and back through the Winelands to the city. It covers roughly 200km by car, and with stops it fills a full day easily. A hire car is essential — public transport does not reach most of these places.</p>
+
+      <p>I drove a small rental and felt slightly underdressed for Chapman's Peak, which demands at least a rugged SUV in spirit if not in practice.</p>
+
+      <div class="article-img-wrap">
+        <img src="https://picsum.photos/seed/chapmans/800/500" alt="Chapman's Peak coastal drive" class="article-img" loading="lazy">
+        <p class="article-img-caption">Chapman's Peak Drive — 114 curves cut into the cliff face above the Atlantic. One of the great coastal roads on earth.</p>
+      </div>
+
+      <h2>Chapman's Peak</h2>
+
+      <p>Chapman's Peak Drive is a toll road (R60) cut into the cliff face between Hout Bay and Noordhoek, 9km of hairpin bends with the Atlantic directly below and the mountain directly above. I drove it northbound in the early morning light when the sun was still low and the shadows were long across the water. Halfway along there is a viewpoint where you can stop the car and stand in complete silence above the ocean. The scale is humbling.</p>
+
+      <p>Hout Bay, at the northern end, has a harbour where fishing boats come in from 6am. The market at the end of the pier sells fresh fish and coffee. I ate a breakfast of grilled snoek (a local fish, firm and slightly smoky) and watched the boats and felt very glad to be alive.</p>
+
+      <div class="pull-quote">
+        <p>"Cape Town is the most dramatically situated city I have visited anywhere. Table Mountain rises straight from the city centre. The Atlantic and Indian Oceans meet 40 kilometres away."</p>
+      </div>
+
+      <h2>Boulders Beach and the Penguins</h2>
+
+      <p>Boulders Beach near Simon's Town is home to a colony of several thousand African penguins — small, black-and-white, loudly opinionated birds that waddle past your feet with total indifference. Entry costs about R250 and the boardwalk takes you to within a metre of the colony. I stayed for ninety minutes and did not want to leave. Penguins are, empirically, very good for the mood.</p>
+
+      <p>The beach itself is sheltered and beautiful, and the water at this point is warmer than the Atlantic side — still cold by most standards, brisk and perfectly clear. I swam, briefly and enthusiastically, surrounded by penguins who were entirely unimpressed by my presence.</p>
+
+      <div class="article-img-wrap">
+        <img src="https://picsum.photos/seed/kalkbay/800/520" alt="Kalk Bay harbour and fishing boats" class="article-img" loading="lazy">
+        <p class="article-img-caption">Kalk Bay harbour at low tide — the fishing boats rest on the sand while the village wakes up behind them.</p>
+      </div>
+
+      <h2>Kalk Bay: Where to End the Day</h2>
+
+      <p>Kalk Bay is a small fishing village on the False Bay side of the peninsula — bohemian, slightly worn at the edges, full of antique shops and good restaurants and the smell of the sea. The main street runs along the harbour and is lined with the kind of places that feel discovered rather than designed for tourists.</p>
+
+      <p>I ate a late lunch at a restaurant overlooking the fishing boats — line fish with a side of sweet potato and a glass of South African Chenin Blanc — and watched the afternoon light change the colour of the mountain behind the village from amber to deep rose. The drive back to Cape Town takes forty minutes. By the time I returned, the city lights were on and I was deeply, contentedly exhausted.</p>
+
+      <div class="tip-box">
+        <strong>Planning Your Day</strong>
+        <p>Leave Cape Town by 6am. The loop takes 10–12 hours with stops. Book Boulders Beach entry online in advance (SA National Parks website) to avoid queues. Cape Point closes at 6pm — arrive no later than 3pm if you want to walk to the lighthouse. Fuel up before leaving Cape Town as stations on the peninsula are few.</p>
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<section class="more-stories">
+  <div class="more-inner">
+    <h2>More Stories</h2>
+    <div class="more-divider"></div>
+    <div class="story-grid">
+      <div class="story-card">
+        <img src="https://picsum.photos/seed/marrakechhero/600/400" alt="Marrakech" loading="lazy">
+        <div class="story-card-body">
+          <div class="story-card-cat">Adventure &middot; Morocco</div>
+          <h3 class="story-card-title">Lost in the Medina: 48 Hours in Marrakech</h3>
+          <a href="marrakech.html" class="story-card-link">Read Story →</a>
+        </div>
+      </div>
+      <div class="story-card">
+        <img src="https://picsum.photos/seed/swissalpshero/600/400" alt="Swiss Alps" loading="lazy">
+        <div class="story-card-body">
+          <div class="story-card-cat">Adventure &middot; Switzerland</div>
+          <h3 class="story-card-title">Morning Light in the Swiss Alps</h3>
+          <a href="swiss-alps.html" class="story-card-link">Read Story →</a>
+        </div>
+      </div>
+      <div class="story-card">
+        <img src="https://picsum.photos/seed/valencia/600/400" alt="Valencia" loading="lazy">
+        <div class="story-card-body">
+          <div class="story-card-cat">Food &middot; Spain</div>
+          <h3 class="story-card-title">A Day of Orange Light in Valencia</h3>
+          <a href="valencia.html" class="story-card-link">Read Story →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="#" class="back-to-top">&#8593; Back to top</a>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram" class="social-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" aria-label="YouTube" class="social-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" aria-label="Twitter / X" class="social-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L2.1 2.25h6.988l4.26 5.633 4.896-5.633zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+    <p class="footer-copy">&copy; 2025 Wander With Ave</p>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  document.addEventListener('click', e => {
+    if (!document.getElementById('nav').contains(e.target)) navLinks.classList.remove('open');
+  });
+</script>
+<script src="../animations.js"></script>
+</body>
+</html>

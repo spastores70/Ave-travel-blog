@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wander With Ave — Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #FFF8F0;
+      --coral: #FF6B6B;
+      --coral-dark: #e85555;
+      --green: #2D6A4F;
+      --dark: #1C1C1E;
+      --gray: #6B7280;
+      --warm-gray: #F3EDE5;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .nav {
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: rgba(255,248,240,0.9);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.25s ease;
+    }
+    .nav-links a:hover {
+      color: var(--coral);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--coral);
+      transition: width 0.25s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 999px;
+    }
+    .page-hero {
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      color: var(--green);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+    .page-hero p {
+      max-width: 720px;
+      margin: 0 auto;
+      color: var(--gray);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .content {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+    .section-header {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+    .section-header p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 700px;
+    }
+    .divider {
+      width: 56px;
+      height: 3px;
+      background: var(--coral);
+      border-radius: 999px;
+      margin: 1rem 0;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.75rem;
+    }
+    .blog-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+    }
+    .blog-card-img-wrap {
+      overflow: hidden;
+      height: 240px;
+      flex-shrink: 0;
+    }
+    .blog-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .blog-card:hover .blog-card-img {
+      transform: scale(1.05);
+    }
+    .blog-card-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .blog-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem;
+      color: var(--dark);
+      line-height: 1.35;
+      margin-bottom: 0.85rem;
+    }
+    .blog-card-date {
+      font-size: 0.78rem;
+      color: #9CA3AF;
+      margin-bottom: 1rem;
+    }
+    .blog-card-excerpt {
+      color: var(--gray);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .blog-card-link {
+      margin-top: auto;
+      color: var(--coral);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .blog-card-link:hover {
+      color: var(--coral-dark);
+      transform: translateX(2px);
+    }
+    @media (max-width: 900px) {
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .nav { padding: 1rem 1rem; }
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(255,248,240,0.98); flex-direction: column; gap: 0; box-shadow: 0 14px 30px rgba(0,0,0,0.08); }
+      .nav-links.open { display: flex; }
+      .nav-links li { border-bottom: 1px solid rgba(0,0,0,0.08); }
+      .nav-links a { display: block; padding: 0.95rem 1.5rem; color: var(--dark); }
+      .hamburger { display: flex; }
+      .page-hero { padding-top: 7rem; }
+      .content { padding: 0 1.25rem 3rem; }
+      .page-hero h1 { font-size: 2.7rem; }
+      .page-hero p { font-size: 1rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <a href="index.html#home" class="nav-logo">Wander With Ave</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+  <main>
+    <section class="page-hero">
+      <div class="section-header">
+        <h1>Wander With Ave Blog</h1>
+        <div class="divider"></div>
+        <p>Eight fresh travel stories, captured in warm hues and honest moments. Read on for journey notes, city secrets, and seasonal escapes.</p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="section-header">
+        <h2>Latest Posts</h2>
+        <p>Each entry is a short, immersive glimpse into a destination, perfect for planning your next adventure.</p>
+      </div>
+      <div class="blog-grid">
+        <article class="blog-card">
+          <div class="blog-card-img-wrap">
+            <img class="blog-card-img" src="https://picsum.photos/seed/alpscott/900/600" alt="Alpine landscape" loading="lazy">
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Morning Light in the Swiss Alps</h3>
+            <div class="blog-card-date">April 12, 2026</div>
+            <p class="blog-card-excerpt">A silent morning hike above the valley brought cold air, bright snow, and a feeling of smallness that felt wonderfully expansive.</p>
+            <a href="articles/swiss-alps.html" class="blog-card-link">Read More →</a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-img-wrap">
+            <img class="blog-card-img" src="https://picsum.photos/seed/porto/900/600" alt="Porto riverside" loading="lazy">
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Sunset Strolls Along the Douro</h3>
+            <div class="blog-card-date">March 29, 2026</div>
+            <p class="blog-card-excerpt">From pastel buildings to riverside cafés, Porto felt like a city designed for slow evenings and sweet discoveries.</p>
+            <a href="articles/porto.html" class="blog-card-link">Read More →</a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-img-wrap">
+            <img class="blog-card-img" src="https://picsum.photos/seed/kyoto/900/600" alt="Kyoto garden" loading="lazy">
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Quiet Corners of Kyoto in Spring</h3>
+            <div class="blog-card-date">March 14, 2026</div>
+            <p class="blog-card-excerpt">Hidden shrines, mossy paths, and a single matcha tea house made Kyoto feel like a living poem in bloom.</p>
+            <a href="articles/kyoto.html" class="blog-card-link">Read More →</a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-img-wrap">
+            <img class="blog-card-img" src="https://picsum.photos/seed/capetown/900/600" alt="Cape Town coastline" loading="lazy">
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Cape Town's Coastal Sunrise Loop</h3>
+            <div class="blog-card-date">February 20, 2026</div>
+            <p class="blog-card-excerpt">A route that climbed cliffs, crossed beaches, and ended at a pier where the ocean felt impossibly wide and vivid.</p>
+            <a href="articles/cape-town.html" class="blog-card-link">Read More →</a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-img-wrap">
+            <img class="blog-card-img" src="https://picsum.photos/seed/valencia/900/600" alt="Valencia street" loading="lazy">
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">A Day of Orange Light in Valencia</h3>
+            <div class="blog-card-date">January 18, 2026</div>
+            <p class="blog-card-excerpt">Sun-drenched plazas, ceramic tile markets, and one unforgettable paella shared with new friends.</p>
+            <a href="articles/valencia.html" class="blog-card-link">Read More →</a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-img-wrap">
+            <img class="blog-card-img" src="https://picsum.photos/seed/kyiv/900/600" alt="City street scene" loading="lazy">
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">City Cafés and Quiet Museums</h3>
+            <div class="blog-card-date">December 4, 2025</div>
+            <p class="blog-card-excerpt">A cozy winter visit where every museum corridor and café table held a story worth lingering over.</p>
+            <a href="articles/vienna.html" class="blog-card-link">Read More →</a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-img-wrap">
+            <img class="blog-card-img" src="https://picsum.photos/seed/athens/900/600" alt="Athens rooftop" loading="lazy">
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Rooftops and Ruins in Athens</h3>
+            <div class="blog-card-date">November 9, 2025</div>
+            <p class="blog-card-excerpt">Historic stones, bold olive oil, and city terraces that paired ancient views with warm twilight conversations.</p>
+            <a href="articles/athens.html" class="blog-card-link">Read More →</a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-img-wrap">
+            <img class="blog-card-img" src="https://picsum.photos/seed/santorini/900/600" alt="Santorini cliffside" loading="lazy">
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Blue Domes and Wind-Swept Streets</h3>
+            <div class="blog-card-date">October 25, 2025</div>
+            <p class="blog-card-excerpt">A short escape where every whitewashed alley felt like a postcard, and every view seemed designed to slow you down.</p>
+            <a href="articles/santorini.html" class="blog-card-link">Read More →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="#" class="back-to-top">&#8593; Back to top</a>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram" class="social-link">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" class="social-link">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Twitter / X" class="social-link">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L2.1 2.25h6.988l4.26 5.633 4.896-5.633zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+      <p class="footer-copy">&copy; 2025 Wander With Ave</p>
+    </div>
+  </footer>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    document.addEventListener('click', event => {
+      if (!document.getElementById('nav').contains(event.target)) {
+        navLinks.classList.remove('open');
+      }
+    });
+  </script>
+  <script src="animations.js"></script>
+</body>
+</html>

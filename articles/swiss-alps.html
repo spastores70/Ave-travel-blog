@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Light in the Swiss Alps — Wander With Ave</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream:#FFF8F0;--coral:#FF6B6B;--coral-dark:#e85555;--green:#2D6A4F;--dark:#1C1C1E;--gray:#6B7280;--warm-gray:#F3EDE5; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--dark); line-height:1.6; }
+    .nav { position:fixed; inset-block-start:0; inset-inline:0; z-index:1000; display:flex; align-items:center; justify-content:space-between; padding:0.9rem 2.5rem; background:rgba(255,248,240,0.96); backdrop-filter:blur(12px); box-shadow:0 2px 24px rgba(0,0,0,0.08); }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--green); text-decoration:none; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { color:var(--dark); text-decoration:none; font-size:0.82rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; transition:color 0.25s; position:relative; }
+    .nav-links a:hover { color:var(--coral); }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:2px; background:var(--coral); transition:width 0.3s; }
+    .nav-links a:hover::after { width:100%; }
+    .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--dark); border-radius:2px; }
+    .article-hero { position:relative; height:72vh; min-height:500px; display:flex; align-items:flex-end; overflow:hidden; }
+    .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .hero-overlay { position:relative; z-index:1; width:100%; padding:4rem 2.5rem 3rem; background:linear-gradient(to top,rgba(0,0,0,0.78) 0%,rgba(0,0,0,0.25) 55%,transparent 100%); }
+    .hero-inner { max-width:820px; margin:0 auto; }
+    .category-tag { display:inline-block; padding:0.28rem 0.9rem; border-radius:50px; background:var(--coral); color:white; font-size:0.72rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:1rem; }
+    .article-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,5vw,3.8rem); color:white; line-height:1.1; margin-bottom:1rem; text-shadow:0 2px 24px rgba(0,0,0,0.35); }
+    .article-meta { display:flex; align-items:center; gap:1.25rem; color:rgba(255,255,255,0.72); font-size:0.84rem; }
+    .meta-sep { opacity:0.35; }
+    .article-body { padding:4.5rem 2rem 5.5rem; }
+    .article-container { max-width:720px; margin:0 auto; }
+    .article-container p { font-size:1rem; line-height:1.9; color:#374151; margin-bottom:1.5rem; }
+    .article-container p.lead { font-size:1.15rem; line-height:1.85; color:var(--dark); }
+    .article-container h2 { font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--green); line-height:1.2; margin:3rem 0 1.1rem; }
+    .pull-quote { border-left:4px solid var(--coral); margin:2.75rem 0; padding:1.1rem 1.75rem; background:rgba(255,107,107,0.05); border-radius:0 8px 8px 0; }
+    .pull-quote p { font-family:'Playfair Display',serif !important; font-style:italic; font-size:1.2rem !important; line-height:1.65 !important; color:var(--dark) !important; margin:0 !important; }
+    .article-img-wrap { margin:2.75rem 0; }
+    .article-img { width:100%; border-radius:12px; display:block; }
+    .article-img-caption { font-size:0.8rem; color:var(--gray); text-align:center; margin-top:0.65rem; font-style:italic; }
+    .article-container ul { padding-left:1.6rem; margin-bottom:1.5rem; }
+    .article-container li { font-size:1rem; line-height:1.8; color:#374151; margin-bottom:0.35rem; }
+    .tip-box { background:var(--warm-gray); border-radius:12px; padding:1.3rem 1.6rem; margin:2.25rem 0; }
+    .tip-box strong { display:block; color:var(--green); margin-bottom:0.45rem; font-size:0.82rem; letter-spacing:0.7px; text-transform:uppercase; }
+    .tip-box p { margin:0 !important; font-size:0.92rem !important; color:var(--gray) !important; }
+    .more-stories { background:var(--warm-gray); padding:4.5rem 2rem; }
+    .more-inner { max-width:1120px; margin:0 auto; }
+    .more-stories h2 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--green); }
+    .more-divider { width:48px; height:3px; background:var(--coral); border-radius:2px; margin:0.75rem 0 2rem; }
+    .story-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+    .story-card { background:white; border-radius:14px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.06); transition:transform 0.3s,box-shadow 0.3s; }
+    .story-card:hover { transform:translateY(-5px); box-shadow:0 12px 36px rgba(0,0,0,0.12); }
+    .story-card img { width:100%; height:170px; object-fit:cover; display:block; }
+    .story-card-body { padding:1.1rem 1.25rem 1.3rem; }
+    .story-card-cat { font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--coral); margin-bottom:0.4rem; }
+    .story-card-title { font-family:'Playfair Display',serif; font-size:1rem; color:var(--dark); line-height:1.35; margin-bottom:0.75rem; }
+    .story-card-link { color:var(--coral); text-decoration:none; font-size:0.82rem; font-weight:600; display:inline-flex; align-items:center; gap:0.3rem; transition:gap 0.2s; }
+    .story-card-link:hover { gap:0.5rem; }
+    .footer { background:var(--green); color:rgba(255,255,255,0.75); text-align:center; padding:2.75rem 2rem; }
+    .footer-logo { font-family:'Playfair Display',serif; font-size:1.4rem; color:white; margin-bottom:0.35rem; }
+    .footer-tagline { font-family:'Playfair Display',serif; font-style:italic; font-size:0.88rem; margin-bottom:1.5rem; }
+    .footer-links { display:flex; justify-content:center; gap:2rem; list-style:none; margin-bottom:1.5rem; }
+    .footer-links a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.8rem; font-weight:500; letter-spacing:0.5px; text-transform:uppercase; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--coral); }
+    .footer-copy { font-size:0.78rem; color:rgba(255,255,255,0.32); }
+    @media(max-width:768px){
+      .nav{padding:0.75rem 1.25rem;} .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(255,248,240,0.98);flex-direction:column;gap:0;box-shadow:0 6px 24px rgba(0,0,0,0.1);}
+      .nav-links.open{display:flex;} .nav-links li{border-bottom:1px solid rgba(0,0,0,0.05);} .nav-links a{display:block;padding:0.95rem 1.75rem;}
+      .hamburger{display:flex;} .article-hero{height:55vh;min-height:380px;} .hero-overlay{padding:2.5rem 1.25rem 2rem;}
+      .article-body{padding:2.5rem 1.25rem 3.5rem;} .story-grid{grid-template-columns:1fr;} .more-stories{padding:3rem 1.25rem;}
+    }
+  </style>
+  <link rel="stylesheet" href="../animations.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="../index.html" class="nav-logo">Wander With Ave</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../blog.html">Blog</a></li>
+    <li><a href="../index.html#about">About</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<article>
+  <header class="article-hero">
+    <img src="https://picsum.photos/seed/swissalpshero/1400/900" alt="Swiss Alps at dawn" class="hero-img">
+    <div class="hero-overlay">
+      <div class="hero-inner">
+        <span class="category-tag">Adventure &middot; Switzerland</span>
+        <h1>Morning Light in the Swiss Alps</h1>
+        <div class="article-meta">
+          <span>April 12, 2026</span>
+          <span class="meta-sep">|</span>
+          <span>5 min read</span>
+          <span class="meta-sep">|</span>
+          <span>Grindelwald, Switzerland</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="article-body">
+    <div class="article-container">
+
+      <p class="lead">My alarm went off at 4:15am and I genuinely considered ignoring it. The duvet in my Grindelwald guesthouse was thick and the room was cold and the dark outside the window offered no encouragement. But I had come to the Alps for this — the light before sunrise, the silence, the feeling of standing inside something enormous and indifferent and impossibly beautiful.</p>
+
+      <p>I laced my boots in the dark, packed a thermos of coffee, and walked out into air so clean and cold it felt like drinking from a mountain stream. By 5am I was on the trail. By 6:20am I was watching the Eiger turn from grey to rose gold to blazing white, and I understood, viscerally, why people come back to these mountains again and again.</p>
+
+      <h2>The Night Before</h2>
+
+      <p>Grindelwald is the base for most hikes in the Bernese Oberland — a village of carved wooden chalets and cow bells and the constant drama of enormous peaks all around. I had arrived the previous afternoon, walked the main street, eaten rösti at a wooden table in a restaurant where everyone was wearing the same brand of hiking boots, and gone to bed before 9pm without embarrassment.</p>
+
+      <p>The hike I had chosen was the Männlichen to Kleine Scheidegg walk: a high ridge trail above the valley with unobstructed views of the Eiger, Mönch, and Jungfrau. Moderate in difficulty, about 2.5 hours one way, and one of the most visually dramatic walks in Switzerland without requiring technical skill or a guide.</p>
+
+      <div class="article-img-wrap">
+        <img src="https://picsum.photos/seed/swissridge/800/500" alt="Alpine ridge trail with mountain views" class="article-img" loading="lazy">
+        <p class="article-img-caption">The Männlichen ridge at 7am — the valley still in shadow, the peaks already lit with the first horizontal light.</p>
+      </div>
+
+      <h2>Starting Before Sunrise</h2>
+
+      <p>The cable car to Männlichen does not open until 8am. I took the gondola to Grindelwald-First instead and walked a longer approach in the dark, using a headlamp for the first forty minutes. I do not necessarily recommend this to everyone. But I also do not regret it for a single second. The darkness before a mountain sunrise is its own experience — the landscape invisible but palpably there, enormous and breathing around you.</p>
+
+      <p>By the time I reached the main ridge, the sky was turning pale at the eastern horizon. A marmot watched me from a boulder, unimpressed. The air smelled of frozen grass and something mineral and clean. I found a flat rock, poured coffee from my thermos, and waited.</p>
+
+      <div class="pull-quote">
+        <p>"The Eiger turned from grey to rose gold to blazing white in about four minutes. I've watched more sunrises than I can count. This one I will not forget."</p>
+      </div>
+
+      <h2>The Ridge Walk to Kleine Scheidegg</h2>
+
+      <p>Once the sun was fully up, the trail transformed. What had been a dark, largely featureless path became a high green ridge with wildflowers and wooden fences and the three great peaks filling the entire southern sky. The Eiger's north face — that legendary wall of grey rock that has humbled the greatest climbers — was directly in front of me for the better part of an hour.</p>
+
+      <p>Kleine Scheidegg, at the far end of the walk, is a railway junction where the Jungfraubahn departs for the Jungfraujoch glacier. There is a hotel, a terrace restaurant, and trains back to Grindelwald. I ate scrambled eggs and watched tourist groups arrive by train, fresh and cheerful and entirely unaware of how good the morning had already been for those of us who had walked.</p>
+
+      <div class="article-img-wrap">
+        <img src="https://picsum.photos/seed/swissvalley/800/520" alt="Swiss alpine valley from above" class="article-img" loading="lazy">
+        <p class="article-img-caption">Looking down into the Lauterbrunnen Valley from the trail — 72 waterfalls visible on a clear morning.</p>
+      </div>
+
+      <h2>What to Bring</h2>
+
+      <ul>
+        <li>Warm layers — even in April, the ridge is cold before 9am</li>
+        <li>A headlamp if you plan an early start</li>
+        <li>Trekking poles (the descents are steep in places)</li>
+        <li>Cash for the terrace restaurant at Kleine Scheidegg (cards sometimes don't work)</li>
+        <li>Sunscreen — the UV at altitude is serious even in cloud</li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>Getting There</strong>
+        <p>Take the train to Interlaken Ost, then the Bernese Oberland Railway to Grindelwald. The journey from Zurich takes about 2.5 hours total. The Swiss Travel Pass covers all of it including the rack railway up to Kleine Scheidegg. Book accommodation in Grindelwald (not Interlaken) to wake up inside the mountains.</p>
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<section class="more-stories">
+  <div class="more-inner">
+    <h2>More Stories</h2>
+    <div class="more-divider"></div>
+    <div class="story-grid">
+      <div class="story-card">
+        <img src="https://picsum.photos/seed/capetown/600/400" alt="Cape Town" loading="lazy">
+        <div class="story-card-body">
+          <div class="story-card-cat">Adventure &middot; South Africa</div>
+          <h3 class="story-card-title">Cape Town's Coastal Sunrise Loop</h3>
+          <a href="cape-town.html" class="story-card-link">Read Story →</a>
+        </div>
+      </div>
+      <div class="story-card">
+        <img src="https://picsum.photos/seed/kyoto/600/400" alt="Kyoto" loading="lazy">
+        <div class="story-card-body">
+          <div class="story-card-cat">Culture &middot; Japan</div>
+          <h3 class="story-card-title">Quiet Corners of Kyoto in Spring</h3>
+          <a href="kyoto.html" class="story-card-link">Read Story →</a>
+        </div>
+      </div>
+      <div class="story-card">
+        <img src="https://picsum.photos/seed/porto/600/400" alt="Porto" loading="lazy">
+        <div class="story-card-body">
+          <div class="story-card-cat">Culture &middot; Portugal</div>
+          <h3 class="story-card-title">Sunset Strolls Along the Douro</h3>
+          <a href="porto.html" class="story-card-link">Read Story →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="#" class="back-to-top">&#8593; Back to top</a>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram" class="social-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" aria-label="YouTube" class="social-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" aria-label="Twitter / X" class="social-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L2.1 2.25h6.988l4.26 5.633 4.896-5.633zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+    <p class="footer-copy">&copy; 2025 Wander With Ave</p>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  document.addEventListener('click', e => {
+    if (!document.getElementById('nav').contains(e.target)) navLinks.classList.remove('open');
+  });
+</script>
+<script src="../animations.js"></script>
+</body>
+</html>

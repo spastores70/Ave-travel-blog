@@ -1,0 +1,14 @@
+# Claude Code AI memory — not part of the project
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+.idea/
+
+# Node (if you ever add a build step)
+node_modules/
