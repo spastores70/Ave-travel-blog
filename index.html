@@ -1063,8 +1063,11 @@
 
     /* ── Create markers ─────────────────────────────────────── */
     const markerData = destinations.map(d => {
-      const marker = L.marker(d.coords, { icon: makeIcon(d.category) })
-        .bindPopup(popupHTML(d), { maxWidth: 264, closeButton: true });
+      const marker = L.marker(d.coords, { icon: makeIcon(d.category) });
+      marker.bindPopup(popupHTML(d), { maxWidth: 264, closeButton: true });
+      // bindPopup registers its own click→openPopup handler; remove it so
+      // our flyTo handler is the only one that runs.
+      marker.off('click');
 
       marker.on('mouseover', function () {
         const el = this.getElement();
@@ -1077,14 +1080,11 @@
 
       marker.on('click', function (e) {
         L.DomEvent.stopPropagation(e);
-        const latlng = this.getLatLng();
-        const currentZoom = map.getZoom();
-        if (currentZoom >= 6) {
-          map.flyTo(latlng, 6, { animate: true, duration: 0.6 });
-        } else {
-          map.flyTo(latlng, 6, { animate: true, duration: 1.0 });
-        }
-        map.once('moveend', () => this.openPopup());
+        const latlng   = this.getLatLng();
+        const duration = map.getZoom() >= 6 ? 0.6 : 1.0;
+        const self     = this;
+        map.flyTo(latlng, 6, { animate: true, duration });
+        map.once('moveend', function () { self.openPopup(); });
       });
 
       return { marker, category: d.category };
