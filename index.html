@@ -1119,13 +1119,14 @@
 
         const filter = btn.dataset.filter;
 
-        markerData.forEach(({ marker, category }) => {
-          if (filter === 'all' || category === filter) {
-            clusterGroup.addLayer(marker);
-          } else {
-            clusterGroup.removeLayer(marker);
-          }
-        });
+        clusterGroup.clearLayers();
+        const visible = markerData.filter(({ category }) =>
+          filter === 'all' || category === filter
+        );
+        visible.forEach(({ marker }) => clusterGroup.addLayer(marker));
+        if (visible.length) {
+          map.fitBounds(clusterGroup.getBounds().pad(0.3));
+        }
       });
     });
 
